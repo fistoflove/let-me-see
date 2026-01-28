@@ -32,8 +32,7 @@ Chrome only closes after 5 minutes of inactivity (configurable).
 
 1. **`src/ChromePool.php`** - Manages persistent Chrome instance
 2. **`status.php`** - Monitor Chrome pool health
-3. **`benchmark.php`** - Performance testing tool
-4. **`CHROME_POOL.md`** - Detailed documentation
+3. **`CHROME_POOL.md`** - Detailed documentation
 
 ## Configuration
 
@@ -55,9 +54,7 @@ curl http://localhost:8080/status
 ```
 
 ### 2. Run Benchmark
-```bash
-php benchmark.php
-```
+Make repeated requests to observe warm performance.
 
 ### 3. Compare Speed
 Make 2 requests and compare times:
@@ -139,36 +136,6 @@ curl http://localhost:8080/status
     "lastUsedAgo": "15 seconds"
   }
 }
-```
-
-### Performance Benchmark
-
-```bash
-./benchmark.php
-```
-
-**Output:**
-```
-🚀 Let Me See - Performance Benchmark
-==================================================
-
-📊 Request #1 (Cold Start)...
-✓ Success! Time: 3.245s
-
-📊 Request #2 (Warm)...
-✓ Success! Time: 0.821s
-
-📊 Request #3 (Warm)...
-✓ Success! Time: 0.798s
-
-==================================================
-📈 Results:
-
-Cold Start (1st request):     3.245s
-Warm Average (2-5 requests):  0.803s
-Speed Improvement:            75.3%
-
-🎉 Chrome Pool is working great!
 ```
 
 ## Production Tips
