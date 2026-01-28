@@ -20,6 +20,7 @@ A simple PHP service that renders HTML/CSS at different resolutions using headle
 - PHP 8.0 or higher
 - Composer
 - Google Chrome or Chromium browser
+- Swoole runtime (or PHAPI portable Swoole)
 
 ### Installation
 
@@ -58,9 +59,9 @@ A simple PHP service that renders HTML/CSS at different resolutions using headle
    # /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
    ```
 
-6. **Start the service (development):**
+6. **Start the service (PHAPI runtime):**
   ```bash
-  php -S localhost:8080 app.php
+  APP_RUNTIME=swoole APP_PORT=9501 php public/index.php
   ```
    
   > **Tip:** This keeps everything in one process for quick local testing. For persistent Chrome and production use, follow the nginx + PHP-FPM setup below.
@@ -79,84 +80,16 @@ APP_RUNTIME=swoole APP_PORT=9501 php new-version/public/index.php
 
 ### Nginx + PHP-FPM Deployment
 
-> These steps keep the PHP worker alive, so Chrome stays hot between requests.
+  > **Tip:** Set `APP_RUNTIME=portable_swoole` if you're using the portable runtime.
 
-1. **Install runtime (Ubuntu):**
+7. **Test the service:**
   ```bash
-  sudo apt install nginx php8.3-fpm
-  ```
-
-2. **Create nginx site config** at `/etc/nginx/sites-available/let-me-see`:
-  ```nginx
-  server {
-     listen 8080;
-     server_name localhost;
-
-     root /home/vini/projects/let-me-see/public;
-     index index.php;
-
-     location /storage/ {
-        try_files $uri $uri/ /index.php?$query_string;
-     }
-
-     location / {
-        try_files $uri /index.php?$query_string;
-     }
-
-     location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
-        fastcgi_keep_conn on;
-     }
-  }
-  ```
-
-3. **Enable the site and reload nginx:**
-  ```bash
-  sudo ln -s /etc/nginx/sites-available/let-me-see /etc/nginx/sites-enabled/
-  sudo nginx -t
-  sudo systemctl reload nginx
-  ```
-
-4. **(Optional) Reduce FPM workers** to keep Chrome in one process:
-  ```bash
-  sudo sed -i 's/^pm.max_children = .*/pm.max_children = 1/' /etc/php/8.3/fpm/pool.d/www.conf
-  sudo systemctl restart php8.3-fpm
-  ```
-
-5. **Test the service:**
-  ```bash
-  curl http://127.0.0.1:8080/status
+  curl http://127.0.0.1:9501/status
   php benchmark.php
   ```
-  You should see `chrome.alive: true` after the first request and warm render times well under one second.
 
-### OpenSwoole Runtime (Docker)
-
-If you prefer a single long-lived PHP worker, you can run the project inside the official OpenSwoole image. Chrome is not bundled in that container, so install it at runtime and point `CHROME_PATH` to the Chromium binary:
-
-```bash
-bin/run-swoole.sh
-```
-
-- `swoole_server.php` bridges the OpenSwoole HTTP server to the Slim app defined in `bootstrap.php`.
-- The container publishes port `9601` on the host by default (mapped to port `9501` inside the container)—update `SWOOLE_PORT` if you prefer something else.
-- Set `SWOOLE_WORKER_NUM` (>1) to allow multiple concurrent requests (each worker holds its own Chrome instance).
-- Keep `STORAGE_PATH` relative (e.g. `./storage`) so the static handler can serve generated files from `/storage/...` immediately.
-- Keep the container running while you benchmark; stopping it (CTRL+C) shuts everything down cleanly.
-- Set `FILES_BASE_URL=http://127.0.0.1:9601` (or your public URL) in `.env` so generated screenshot links include the correct host and port.
-
-Test the status endpoint once the server is running:
-
-```bash
-curl http://127.0.0.1:9601/status | jq
-```
-
-Stop the container when you're done:
-
-```bash
-bin/stop-swoole.sh
-```
+- Configure `APP_PORT`, `APP_HOST`, and `APP_DEBUG` as needed.
+- Set `FILES_BASE_URL` in `.env` (for example, `http://127.0.0.1:9501`) so screenshot URLs include the correct host and port.
 
 ## 📡 API Usage
 

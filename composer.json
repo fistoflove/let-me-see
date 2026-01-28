@@ -6,17 +6,11 @@
     "php": "^8.0",
     "chrome-php/chrome": "^1.0",
     "vlucas/phpdotenv": "^5.5",
-    "slim/slim": "^4.15",
-    "slim/psr7": "^1.7",
-    "spiral/roadrunner": "^2024.1",
-    "spiral/roadrunner-http": "^3.5",
-    "spiral/roadrunner-worker": "^3.2",
-    "nyholm/psr7": "^1.8",
-    "spiral/roadrunner-cli": "^2.5",
-    "nyholm/psr7-server": "^1.1"
+    "phapi/phapi": "dev-main"
   },
   "autoload": {
     "psr-4": {
+      "LetMeSee\\Phapi\\": "app/",
       "LetMeSee\\": "src/"
     }
   },
