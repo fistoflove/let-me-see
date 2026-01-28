@@ -65,6 +65,18 @@ A simple PHP service that renders HTML/CSS at different resolutions using headle
    
   > **Tip:** This keeps everything in one process for quick local testing. For persistent Chrome and production use, follow the nginx + PHP-FPM setup below.
 
+### PHAPI Runtime (Swoole)
+
+For the PHAPI-based implementation (see `new-version/`), run the Swoole runtime directly:
+
+```bash
+APP_RUNTIME=swoole APP_PORT=9501 php new-version/public/index.php
+```
+
+- Set `APP_RUNTIME=portable_swoole` if you're using the portable runtime.
+- Configure `APP_PORT`, `APP_HOST`, and `APP_DEBUG` as needed.
+- Set `FILES_BASE_URL` in `.env` (for example, `http://127.0.0.1:9501`) so screenshot URLs include the correct host and port.
+
 ### Nginx + PHP-FPM Deployment
 
 > These steps keep the PHP worker alive, so Chrome stays hot between requests.
