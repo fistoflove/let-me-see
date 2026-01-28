@@ -26,7 +26,7 @@ A simple PHP service that renders HTML/CSS at different resolutions using headle
 
 1. **Clone or navigate to the project directory:**
    ```bash
-   cd /home/vini/projects/let-me-see
+   cd /path/to/let-me-see
    ```
 
 2. **Install dependencies:**
@@ -43,9 +43,9 @@ A simple PHP service that renders HTML/CSS at different resolutions using headle
    ```env
    BEARER_TOKEN=your-secret-token-here
    CHROME_PATH=/usr/bin/google-chrome
-  STORAGE_PATH=./storage
-  FILES_URL_PREFIX=/storage
-  # FILES_BASE_URL=http://127.0.0.1:9601
+   STORAGE_PATH=./storage
+   FILES_URL_PREFIX=/storage
+   # FILES_BASE_URL=http://127.0.0.1:9601
    ```
 
 5. **Find your Chrome path:**
@@ -60,18 +60,18 @@ A simple PHP service that renders HTML/CSS at different resolutions using headle
    ```
 
 6. **Start the service (PHAPI runtime):**
-  ```bash
-  APP_RUNTIME=swoole APP_PORT=9501 php public/index.php
-  ```
+   ```bash
+   APP_RUNTIME=swoole APP_PORT=9501 php public/index.php
+   ```
    
   > **Tip:** This keeps everything in one process for quick local testing. For persistent Chrome and production use, follow the nginx + PHP-FPM setup below.
 
 ### PHAPI Runtime (Swoole)
 
-For the PHAPI-based implementation (see `new-version/`), run the Swoole runtime directly:
+Run the Swoole runtime directly from the repository root:
 
 ```bash
-APP_RUNTIME=swoole APP_PORT=9501 php new-version/public/index.php
+APP_RUNTIME=swoole APP_PORT=9501 php public/index.php
 ```
 
 - Set `APP_RUNTIME=portable_swoole` if you're using the portable runtime.
@@ -85,7 +85,6 @@ APP_RUNTIME=swoole APP_PORT=9501 php new-version/public/index.php
 7. **Test the service:**
   ```bash
   curl http://127.0.0.1:9501/status
-  php benchmark.php
   ```
 
 - Configure `APP_PORT`, `APP_HOST`, and `APP_DEBUG` as needed.
@@ -459,7 +458,7 @@ echo "Deleted {$deleted} old job directories\n";
 
 ```bash
 # Add to crontab (run daily at 3 AM)
-0 3 * * * cd /path/to/let-me-see && php cleanup.php
+0 3 * * * cd /path/to/let-me-see && php -r 'require "vendor/autoload.php"; $storage = new LetMeSee\\StorageManager("./storage"); echo "Deleted {$storage->cleanup(86400)} old job directories\n";'
 ```
 
 ## 🔧 Troubleshooting

@@ -23,7 +23,6 @@ Your screenshot rendering service is now ready! Here's what was built:
 
 - **`.env.example`** - Environment configuration template
 - **`.env`** - Your actual configuration (created)
-- **`cleanup.php`** - Maintenance script for old screenshots
 - **`test.html`** - Beautiful web UI for testing
 
 ### Documentation
@@ -68,7 +67,7 @@ which google-chrome
 which chromium-browser
 ```
 
-Then edit `/home/vini/projects/let-me-see/.env`:
+Then edit `/path/to/let-me-see/.env`:
 ```env
 CHROME_PATH=/usr/bin/google-chrome  # Use the path you found
 ```
@@ -83,7 +82,7 @@ BEARER_TOKEN=your-super-secret-token-12345
 ### 4. Start the Server
 
 ```bash
-cd /home/vini/projects/let-me-see
+cd /path/to/let-me-see
 php -S localhost:8080
 ```
 
