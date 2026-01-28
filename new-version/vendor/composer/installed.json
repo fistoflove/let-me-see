@@ -1,0 +1,156 @@
+{
+    "packages": [
+        {
+            "name": "phapi/phapi",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fistoflove/PHAPI.git",
+                "reference": "c2b99de13c09955155e1b8b8bba34454425ee5e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fistoflove/PHAPI/zipball/c2b99de13c09955155e1b8b8bba34454425ee5e4",
+                "reference": "c2b99de13c09955155e1b8b8bba34454425ee5e4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-swoole": "*",
+                "php": "^8.3",
+                "psr/container": "^2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.60",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "phpunit/phpunit": "^10.0"
+            },
+            "suggest": {
+                "ext-swoole": "Required for the Swoole runtime."
+            },
+            "time": "2026-01-28T11:36:31+00:00",
+            "default-branch": true,
+            "bin": [
+                "bin/phapi-run",
+                "bin/phapi-jobs"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PHAPI\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "PHAPI\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit --testdox"
+                ],
+                "test:integration": [
+                    "phpunit --testdox --group integration"
+                ],
+                "lint": [
+                    "php-cs-fixer fix --dry-run --diff"
+                ],
+                "lint:fix": [
+                    "php-cs-fixer fix"
+                ],
+                "phpunit": [
+                    "phpunit"
+                ],
+                "phpstan": [
+                    "PHPSTAN_DISABLE_PARALLEL=1 php vendor/bin/phpstan analyse -c phpstan.neon --no-progress"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHAPI Contributors"
+                }
+            ],
+            "description": "A lightweight, high-performance wrapper for Swoole HTTP server with routing, middleware, validation, CORS, and async task support",
+            "homepage": "https://github.com/phapi/phapi",
+            "keywords": [
+                "api",
+                "async",
+                "coroutine",
+                "framework",
+                "http-server",
+                "middleware",
+                "routing",
+                "swoole",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/phapi/phapi/issues",
+                "source": "https://github.com/phapi/phapi"
+            },
+            "install-path": "../phapi/phapi"
+        },
+        {
+            "name": "psr/container",
+            "version": "2.0.2",
+            "version_normalized": "2.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "time": "2021-11-05T16:47:00+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/2.0.2"
+            },
+            "install-path": "../psr/container"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

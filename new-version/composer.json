@@ -1,21 +1,20 @@
 {
     "name": "fistoflove/let-me-see",
-    "description": "",
-    "type": "project",
-    "require": {
-        "php": "^8.0",
-        "slim/slim": "^4.12",
-        "slim/psr7": "^1.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "AdaScanner\\": "src/"
+    "authors": [
+        {
+            "name": "Vini S.",
+            "email": "vini@imsmarketing.ie"
         }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/fistoflove/PHAPI.git"
+        }
+    ],
+    "require": {
+        "phapi/phapi": "dev-main"
     },
-    "scripts": {
-        "start": "php -S localhost:8080 index.php",
-        "post-install-cmd": [
-            "mkdir -p data"
-        ]
-    }
+    "require-dev": {},
+    "scripts": {}
 }
