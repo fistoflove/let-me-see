@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect /storage/* to files.php
+    RewriteRule ^storage/(.*)$ files.php [QSA,L]
+
+    # Redirect /status to status.php (must come before catch-all)
+    RewriteRule ^status/?$ status.php [QSA,L]
+
+    # Redirect render requests to index.php
+    RewriteRule ^render/?$ index.php [QSA,L]
+
+    # Serve existing files directly
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Everything else goes to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
